@@ -6,7 +6,7 @@ namespace MovieLand.Main
     {
         static void Main(string[] args)
         {
-            int age = int.Parse(Console.ReadLine());
+            Console.WriteLine("Hello World!");
         }
     }
 }
