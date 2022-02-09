@@ -1,4 +1,6 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore;
+using MovieLand.Data;
 
 namespace MovieLand.Main
 {
@@ -6,7 +8,9 @@ namespace MovieLand.Main
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            //TODO: move to service
+            var dbContext = new MovieLandDbContext();
+            dbContext.Database.Migrate();
         }
     }
 }
