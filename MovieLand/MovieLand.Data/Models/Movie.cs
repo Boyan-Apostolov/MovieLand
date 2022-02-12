@@ -19,7 +19,7 @@ namespace MovieLand.Data.Models
         [Required]
         public string Producer { get; set; }
 
-        public List<string> Review { get; set; }
+        public List<Review> Review { get; set; }
 
         [Required]
         public string Genre { get; set; }

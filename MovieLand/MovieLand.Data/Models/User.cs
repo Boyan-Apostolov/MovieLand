@@ -12,7 +12,7 @@ namespace MovieLand.Data.Models
 
         public List<Movie> WatchedMovies { get; set; }
 
-        public List<string> Reviews { get; set; }
+        public List<Review> Reviews { get; set; }
 
         [Required]
         public string Email { get; set; }
