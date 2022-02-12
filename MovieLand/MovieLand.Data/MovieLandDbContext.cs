@@ -24,8 +24,8 @@ namespace MovieLand.Data
                 Server = "localhost",
                 Database = "MovieLand",
                 Port = 3306,
-                UserID = "root",
-                Password = "root"
+                UserID = "developer",
+                Password = "password"
             };
 
             return sqlConnectionStringBuilder.ConnectionString;
