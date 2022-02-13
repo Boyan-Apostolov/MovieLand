@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MovieLand.Data\MovieLand.Data.csproj" />
+    <ProjectReference Include="..\MovieLand.Services\MovieLand.Services.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using MovieLand.Data;
+using MovieLand.Services.SeederService;
 
 namespace MovieLand.Main
 {
@@ -8,9 +10,13 @@ namespace MovieLand.Main
     {
         static void Main(string[] args)
         {
-            //TODO: move to service
             var dbContext = new MovieLandDbContext();
             dbContext.Database.Migrate();
+            
+            var seederService = new SeederService(dbContext);
+            var addedMovies = seederService.SeedMovies(0,5);
+
+            Console.WriteLine($"Added: {addedMovies} movies");
         }
     }
 }

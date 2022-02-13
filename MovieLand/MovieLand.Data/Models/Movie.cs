@@ -7,6 +7,13 @@ namespace MovieLand.Data.Models
 {
     public class Movie
     {
+        public Movie()
+        {
+            this.Actors = new List<string>();
+            this.KeyWords = new List<string>();
+            this.Reviews = new List<Review>();
+        }
+
         [Key]
         public int Id { get; set; }
 
@@ -19,16 +26,13 @@ namespace MovieLand.Data.Models
         [Required]
         public string Producer { get; set; }
 
-        public List<Review> Review { get; set; }
-
         [Required]
         public string Genre { get; set; }
 
-        [Required]
-        public List<string> Actors{get; set; }
+        public List<string> Actors;
 
-        [Required]
-        public List<string> KeyWords { get; set; }
-        
+        public List<string> KeyWords;
+
+        public List<Review> Reviews;
     }
 }

@@ -7,12 +7,14 @@ namespace MovieLand.Data.Models
 {
     public class User
     {
+        public User()
+        {
+            this.WatchedMovies = new List<Movie>();
+            this.Reviews = new List<Review>();
+        }
+
         [Key]
         public int Id { get; set; }
-
-        public List<Movie> WatchedMovies { get; set; }
-
-        public List<Review> Reviews { get; set; }
 
         [Required]
         public string Email { get; set; }
@@ -22,5 +24,9 @@ namespace MovieLand.Data.Models
 
         [Required]
         public string Password { get; set; }
+
+        public List<Movie> WatchedMovies;
+
+        public List<Review> Reviews;
     }
 }

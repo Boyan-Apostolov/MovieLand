@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MovieLand.Data.Models
 {
-   public class Review
+    public class Review
     {
         [Key]
         public int Id { get; set; }
@@ -14,19 +14,10 @@ namespace MovieLand.Data.Models
 
         public User CreatedBy { get; set; }
 
-        private double grade;
-
         [Required]
-        public double Grade
-        {
-            get { return grade; }
-            set {
-                    if (value <=10)
-                    {
-                        grade = value;
-                    }
-                }
-        }
+        [Range(1, 10)]
+        public double Grade { get; set; }
+        
         [Required]
         public string ReviewText { get; set; }
 
