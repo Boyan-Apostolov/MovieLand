@@ -14,6 +14,7 @@ namespace MovieLand.Services.UserINF
 
             set
             {
+                this.Username = this.username;
                 if (value != "'" || value != "/" || value != "*" || value == "!")
                 {
                     username = value;
@@ -25,6 +26,8 @@ namespace MovieLand.Services.UserINF
                         + ((Console.WindowWidth / 2)
                         + (ToTyepe.Length / 2))
                         + "}", ToTyepe));
+
+                    RequestUsername();
                 }
             }
         }
@@ -36,6 +39,7 @@ namespace MovieLand.Services.UserINF
 
             set
             {
+                this.HPassword = this.hPassword;
                 if (value != "'" || value != "/" || value != "*" || value == "!")
                 {
                     hPassword = value;
@@ -53,6 +57,13 @@ namespace MovieLand.Services.UserINF
             }
         }
 
+        public static string RequestUsername()
+        {
+            string Username;
+            Console.WriteLine("Username:");
+            Username = Console.ReadLine();
+            return Username;
+        }
 
         public static string ConvertPassword()
         {
