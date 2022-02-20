@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using MovieLand.Data;
+using MovieLand.Data.Models;
 using MovieLand.Services.SeederService;
 using MovieLand.Services.UserService;
 
@@ -13,6 +16,23 @@ namespace MovieLand.Main
         {
             var dbContext = new MovieLandDbContext();
             dbContext.Database.Migrate();
+            
+            var movie = dbContext.Movies.First(x => x.Id == 1);
+
+            //var review = new Review()
+            //{
+            //    CreatedBy = dbContext.Users.First(),
+            //    CreatedOn = DateTime.Now,
+            //    Grade = 6,
+            //    ReviewText = "ok",
+            //    MovieId = movie.Id
+            //};
+
+            //dbContext.Reviews.Add(review);
+
+            //dbContext.SaveChanges();
+
+            Console.WriteLine(dbContext.Reviews.Count(x => x.MovieId == movie.Id)); //1
 
             //var seederService = new SeederService(dbContext);
             //var addedMovies = seederService.SeedMovies(50, 10);
