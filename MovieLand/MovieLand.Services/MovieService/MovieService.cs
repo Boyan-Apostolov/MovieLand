@@ -25,7 +25,7 @@ namespace MovieLand.Services.MovieService
                 Producer=producer,
                 Genre=genre
             };
-            this.dbContext.Movies.Remove(movie);
+            this.dbContext.Movies.Add(movie);
             this.dbContext.SaveChanges();
         }
 
