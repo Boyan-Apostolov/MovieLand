@@ -11,6 +11,6 @@ namespace MovieLand.Services.MovieService
 
         public Movie? GetMovie(int id);
 
-        public void DeleteMovie(int id);
+        public bool DeleteMovie(int id);
     }
 }

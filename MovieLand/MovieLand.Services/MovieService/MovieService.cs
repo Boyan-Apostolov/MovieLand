@@ -16,48 +16,38 @@ namespace MovieLand.Services.MovieService
             this.dbContext = dbContext;
         }
 
-        public void CreateMovie( string title, string plot, string producer, string genre)
+        public void CreateMovie(string title, string plot, string producer, string genre)
         {
             var movie = new Movie()
             {
                 Title = title,
-                Plot= plot,
-                Producer=producer,
-                Genre=genre
+                Plot = plot,
+                Producer = producer,
+                Genre = genre
             };
+
             this.dbContext.Movies.Add(movie);
             this.dbContext.SaveChanges();
         }
 
         public Movie? GetMovie(int id)
         {
-            var movie = new Movie()
-            {
-                Id = id
-            };
-
-            if (this.dbContext.Movies.Any(m => m.Id == id))
-            {
-                return movie;
-            }
-            else
-            {
-                return null;
-            }
+            return this.dbContext.Movies.FirstOrDefault(x => x.Id == id);
         }
 
-        public void DeleteMovie(int id)
+        public bool DeleteMovie(int id)
         {
-            var movie = new Movie()
-            {
-                Id=id
-            };
-            if (this.dbContext.Movies.Any(m => m.Id == id))
+            var movie = this.dbContext.Movies.FirstOrDefault(x => x.Id == id); ;
+
+            if (movie != null)
             {
                 this.dbContext.Movies.Remove(movie);
                 this.dbContext.SaveChanges();
+
+                return true;
             }
-            
+
+            return false;
         }
     }
 }
