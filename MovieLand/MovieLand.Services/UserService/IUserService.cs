@@ -11,5 +11,9 @@ namespace MovieLand.Services.UserService
         public bool Login(string username, string password);
 
         public bool Register(string email, string username, string password);
+
+        public bool IsUserAuthenticated();
+
+        public bool IsUserAdmin();
     }
 }

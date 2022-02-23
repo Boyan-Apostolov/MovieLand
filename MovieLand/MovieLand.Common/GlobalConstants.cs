@@ -10,6 +10,8 @@ namespace MovieLand.Common
 
         public const string MovieInfoEndpoint = "https://imdb-api.com/en/API/Title/k_is5zq14v/{0}/FullCast";
 
+        public const string AdminEmail = "admin@admin.com";
+
         public class PrinterConfigs
         {
             public const string ColumnSeparator = "|";
@@ -25,7 +27,7 @@ namespace MovieLand.Common
             public const int DirectorColumnWidth = 16;
 
             public const string WelcomeMessage = "Welcome to MovieLand";
-
+            
             public const int DefaultNumberOfShownMovies = 10;
         }
     }

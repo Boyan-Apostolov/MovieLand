@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using MovieLand.Common;
 using MovieLand.Data;
 using MovieLand.Data.Models;
 
@@ -12,10 +13,12 @@ namespace MovieLand.Services.UserService
     public class UserService : IUserService
     {
         private readonly MovieLandDbContext dbContext;
+        private User currentUser;
 
         public UserService(MovieLandDbContext dbContext)
         {
             this.dbContext = dbContext;
+            this.currentUser = null;
         }
 
         public string EncryptPassword(string password)
@@ -31,9 +34,12 @@ namespace MovieLand.Services.UserService
         {
             string hashed_password = EncryptPassword(password);
 
-            return 
-                dbContext.Users
-                    .FirstOrDefault(x => x.UserName == username).Password == hashed_password;
+            var user = dbContext.Users
+                .FirstOrDefault(x => x.UserName == username);
+
+            if (user.Password != hashed_password) return false;
+            this.currentUser = user;
+            return true;
         }
 
         public bool Register(string email, string username, string password)
@@ -66,7 +72,12 @@ namespace MovieLand.Services.UserService
             this.dbContext.Users.Add(user);
             this.dbContext.SaveChanges();
 
+            this.currentUser = user;
             return true;
         }
+
+        public bool IsUserAuthenticated() => this.currentUser != null;
+
+        public bool IsUserAdmin() => this.currentUser.Email == GlobalConstants.AdminEmail;
     }
 }
