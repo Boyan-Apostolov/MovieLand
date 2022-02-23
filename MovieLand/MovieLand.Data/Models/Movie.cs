@@ -22,7 +22,7 @@ namespace MovieLand.Data.Models
         [Required]
         public string Genre { get; set; }
 
-        public ICollection<string> Actors = new HashSet<string>();
+        public string Actors { get; set; }
 
         public ICollection<string> KeyWords = new HashSet<string>();
 

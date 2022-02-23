@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using MovieLand.Data.Models;
 using MovieLand.Data;
 using System.Linq;
@@ -33,6 +31,11 @@ namespace MovieLand.Services.MovieService
         public Movie? GetMovie(int id)
         {
             return this.dbContext.Movies.FirstOrDefault(x => x.Id == id);
+        }
+
+        public List<Movie> GetNumberOfMovies(int countToSkip, int countToTake)
+        {
+            return this.dbContext.Movies.Skip(countToSkip).Take(countToTake).ToList();
         }
 
         public bool DeleteMovie(int id)

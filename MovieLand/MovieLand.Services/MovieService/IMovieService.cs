@@ -12,5 +12,7 @@ namespace MovieLand.Services.MovieService
         public Movie? GetMovie(int id);
 
         public bool DeleteMovie(int id);
+
+        public List<Movie> GetNumberOfMovies(int countToSkip, int countToTake);
     }
 }

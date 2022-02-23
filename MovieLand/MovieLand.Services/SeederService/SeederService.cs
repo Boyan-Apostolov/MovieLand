@@ -37,7 +37,7 @@ namespace MovieLand.Services.SeederService
                 dbContext.Movies.Add(new Movie()
                 {
                     Title = movieToAdd.Title,
-                    Actors = movieToAdd.Stars.Split(", ").ToList(),
+                    Actors = movieToAdd.Stars,
                     Genre = movieToAdd.Genres,
                     KeyWords = movieToAdd.KeyWordList.ToList(),
                     Plot = movieToAdd.Plot,
