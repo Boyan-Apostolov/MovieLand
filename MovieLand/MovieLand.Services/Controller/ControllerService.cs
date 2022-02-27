@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using MovieLand.Common;
 using MovieLand.Data;
-using MovieLand.Services.MovieService;
-using MovieLand.Services.PrinterService;
-using MovieLand.Services.SeederService;
-using MovieLand.Services.UserService;
+using MovieLand.Services.Movies;
+using MovieLand.Services.Printer;
+using MovieLand.Services.Seeder;
+using MovieLand.Services.Users;
 
-namespace MovieLand.Services.ControllerService
+namespace MovieLand.Services.Controller
 {
     public class ControllerService : IControllerService
     {
@@ -19,10 +19,17 @@ namespace MovieLand.Services.ControllerService
         private IPrinterService printerService;
         private ISeederService seederService;
 
-        public ControllerService(MovieLandDbContext dbContext)
+        public ControllerService(MovieLandDbContext dbContext,
+                                ISeederService seederService,
+                                IMovieService movieService,
+                                IUserService userService,
+                                IPrinterService printerService)
         {
             this.dbContext = dbContext;
-            LoadServices();
+            this.seederService = seederService;
+            this.movieService = movieService;
+            this.userService = userService;
+            this.printerService = printerService;
         }
 
         public void Run()
@@ -60,6 +67,9 @@ namespace MovieLand.Services.ControllerService
                         break;
                     case "info":
                         InfoCommand(tokens);
+                        break;
+                    default:
+                        //TODO: add error
                         break;
                 }
 
@@ -121,14 +131,6 @@ namespace MovieLand.Services.ControllerService
         {
             //TODO:
             //Show the user info about the movie - title, reviews(if any), director, plot etc
-        }
-
-        private void LoadServices()
-        {
-            this.userService = new UserService.UserService(this.dbContext);
-            this.movieService = new MovieService.MovieService(dbContext);
-            this.seederService = new SeederService.SeederService(dbContext);
-            this.printerService = new PrinterService.PrinterService(this.movieService, this.userService);
         }
     }
 }

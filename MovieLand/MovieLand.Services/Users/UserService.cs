@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -8,7 +7,7 @@ using MovieLand.Common;
 using MovieLand.Data;
 using MovieLand.Data.Models;
 
-namespace MovieLand.Services.UserService
+namespace MovieLand.Services.Users
 {
     public class UserService : IUserService
     {

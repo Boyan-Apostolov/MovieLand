@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using MovieLand.Data.Models;
 
-namespace MovieLand.Services.MovieService
+namespace MovieLand.Services.Movies
 {
     public interface IMovieService
     {

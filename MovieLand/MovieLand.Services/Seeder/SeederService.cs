@@ -9,7 +9,7 @@ using MovieLand.Data;
 using MovieLand.Data.Models;
 using MovieLand.Services.DTOs;
 
-namespace MovieLand.Services.SeederService
+namespace MovieLand.Services.Seeder
 {
     public class SeederService : ISeederService
     {

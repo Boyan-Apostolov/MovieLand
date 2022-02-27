@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MovieLand.Services.SeederService
+namespace MovieLand.Services.Seeder
 {
     public interface ISeederService
     {

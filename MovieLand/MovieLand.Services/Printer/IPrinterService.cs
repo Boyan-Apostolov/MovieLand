@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MovieLand.Services.PrinterService
+namespace MovieLand.Services.Printer
 {
     public interface IPrinterService
     {

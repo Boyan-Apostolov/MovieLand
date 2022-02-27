@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Text;
 using MovieLand.Common;
-using MovieLand.Services.MovieService;
-using MovieLand.Services.UserService;
+using MovieLand.Services.Movies;
+using MovieLand.Services.Users;
 
-namespace MovieLand.Services.PrinterService
+namespace MovieLand.Services.Printer
 {
     public class PrinterService : IPrinterService
     {

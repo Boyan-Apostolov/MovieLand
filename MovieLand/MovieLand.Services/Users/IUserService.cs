@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MovieLand.Services.UserService
+namespace MovieLand.Services.Users
 {
     public interface IUserService
     {

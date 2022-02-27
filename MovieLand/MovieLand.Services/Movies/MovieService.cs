@@ -3,7 +3,7 @@ using MovieLand.Data.Models;
 using MovieLand.Data;
 using System.Linq;
 
-namespace MovieLand.Services.MovieService
+namespace MovieLand.Services.Movies
 {
     public class MovieService : IMovieService
     {
@@ -16,7 +16,7 @@ namespace MovieLand.Services.MovieService
 
         public void CreateMovie(string title, string plot, string producer, string genre)
         {
-            var movie = new Movie()
+            var movie = new Data.Models.Movie()
             {
                 Title = title,
                 Plot = plot,

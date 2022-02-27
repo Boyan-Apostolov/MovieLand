@@ -1,13 +1,11 @@
 ﻿using System;
+using System.Net.Mime;
+using Autofac;
 using Microsoft.EntityFrameworkCore;
 
 using MovieLand.Data;
-using MovieLand.Common;
-using MovieLand.Services.ControllerService;
-using MovieLand.Services.PrinterService;
-using MovieLand.Services.MovieService;
-using MovieLand.Services.SeederService;
-using MovieLand.Services.UserService;
+using MovieLand.Services.Autofac;
+using MovieLand.Services.Controller;
 
 namespace MovieLand.Main
 {
@@ -31,8 +29,14 @@ namespace MovieLand.Main
             var dbContext = new MovieLandDbContext();
             dbContext.Database.Migrate();
 
-            var controller = new ControllerService(dbContext);
-            controller.Run();
+            var container = ContainerConfig.Configure();
+
+            using (var scope = container.BeginLifetimeScope())
+            {
+                var app = scope.Resolve<ControllerService>();
+
+                app.Run();
+            }
         }
     }
 }
