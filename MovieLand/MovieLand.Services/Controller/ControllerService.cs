@@ -32,12 +32,16 @@ namespace MovieLand.Services.Controller
             this.printerService = printerService;
         }
 
-        public void Run()
+        public void ShowHomePage()
         {
             this.printerService.ShowWelcomeMessage();
             this.printerService.PrintNumberOfMovies(0, GlobalConstants.PrinterConfigs.DefaultNumberOfShownMovies);
             this.printerService.ShowAvailableCommands();
+        }
 
+        public void Run()
+        {
+            ShowHomePage();
             string userInput = "";
             while ((userInput = Console.ReadLine()) != "exit")
             {
@@ -117,6 +121,8 @@ namespace MovieLand.Services.Controller
             //Check if user has permissions(is admin)!!!
             //Ask for parameters - title, plot, etc
             //Create movie and go to home
+            this.printerService.StartingCreatingMovie();
+            ShowHomePage();
         }
 
         private void DeleteCommand(List<string> tokens)
@@ -125,6 +131,9 @@ namespace MovieLand.Services.Controller
             //Check if user has permissions(is admin)!!!
             //Ask for confirmation
             //Delete movie by id and go to home
+            this.printerService.StartingCreatingMovie();
+            ShowHomePage();
+
         }
 
         private void InfoCommand(List<string> tokens)

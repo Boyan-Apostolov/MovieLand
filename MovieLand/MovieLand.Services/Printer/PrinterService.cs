@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using MovieLand.Common;
 using MovieLand.Services.Movies;
@@ -81,6 +82,62 @@ namespace MovieLand.Services.Printer
 
             Console.WriteLine(sb.ToString().Trim());
             this.ClearConsoleColor();
+        }
+
+        public void StartingCreatingMovie()
+        {
+            if (this.userService.IsUserAdmin())
+            {
+                Console.Clear();
+                Console.WriteLine("Movie id:");
+                int id = int.Parse(Console.ReadLine());
+                Console.WriteLine("Movie title:");
+                string title = Console.ReadLine();
+                Console.WriteLine("Movie plot:");
+                string plot = Console.ReadLine();
+                Console.WriteLine("Movie producer:");
+                string producer = Console.ReadLine();
+                Console.WriteLine("Movie genre:");
+                string genre = Console.ReadLine();
+                Console.WriteLine("Movie actors:");
+                string actors = Console.ReadLine();
+                Console.WriteLine("Movie key words:");
+                ICollection<string> keyWords = Console.ReadLine().Split();
+
+                this.movieService.CreateMovie(id, title, plot, producer, genre, actors, keyWords);
+                Console.WriteLine("Movie was created successfully.");
+                Console.Clear();
+            }
+        }
+
+        public void DeleteMovie(List<string> tokens)
+        {
+            int id = int.Parse(tokens[1]);
+            if (this.userService.IsUserAdmin())
+            {
+                var movie = movieService.GetMovie(id);
+                AssuranceForDeletingMovie();
+                string answer = Console.ReadLine();
+                bool isConferned = true;
+                if (answer == "Yes")
+                {
+                    isConferned = true;
+                }
+                else
+                {
+                    isConferned = false;
+                }
+                if (isConferned == true)
+                {
+                    this.movieService.DeleteMovie(id);
+                }
+
+            }
+        }
+
+        public void AssuranceForDeletingMovie()
+        {
+            Console.WriteLine("Are you sure you want to delete this movie?");
         }
 
         public string PrintHomeRow(string[] columns)

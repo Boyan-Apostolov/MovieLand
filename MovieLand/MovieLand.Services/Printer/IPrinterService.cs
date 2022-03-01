@@ -13,5 +13,10 @@ namespace MovieLand.Services.Printer
         public void PrintNumberOfMovies(int countToSkip, int countToGet);
 
         public void ShowCommandsInfo();
+
+        public void StartingCreatingMovie();
+
+        public void DeleteMovie(List<string> tokens);
+
     }
 }

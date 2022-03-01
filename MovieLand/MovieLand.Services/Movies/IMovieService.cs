@@ -7,8 +7,7 @@ namespace MovieLand.Services.Movies
 {
     public interface IMovieService
     {
-        public void CreateMovie(string title, string plot, string producer, string genre);
-
+        public void CreateMovie(int id, string title, string plot, string producer, string genre, string actors, ICollection<string> keyWords);
         public Movie? GetMovie(int id);
 
         public bool DeleteMovie(int id);
