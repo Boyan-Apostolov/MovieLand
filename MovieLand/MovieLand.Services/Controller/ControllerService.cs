@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using MovieLand.Common;
 using MovieLand.Data;
 using MovieLand.Services.Movies;
@@ -123,8 +124,12 @@ namespace MovieLand.Services.Controller
         private void ReviewCommand(List<string> tokens)
         {
             //TODO:
-            //Ask for grade and review text
-            //Save review to user and db and go to home
+            //in printer service:
+            // check if user is authenticated
+            //ask for review grade, text
+            //get the userId for the review with this.userService.GetCurrentUser().Id
+            //use reviewsService.CreateReview to add the review
+            //Show home page
         }
 
         private void WatchedCommand(List<string> tokens)
@@ -147,9 +152,25 @@ namespace MovieLand.Services.Controller
 
         private void InfoCommand(List<string> tokens)
         {
-            //TODO:
-            //Show the user info about the movie - title, reviews(if any), director, plot etc
             this.printerService.InfoAboutMovie(tokens);
+            this.printerService.ShowMovieCommands();
+
+            string userInput = Console.ReadLine();
+            switch (userInput)
+            {
+                case "back":
+                    Console.Clear();
+                    ShowHomePage();
+                    break;
+                case "review":
+                    ReviewCommand(tokens);
+                    break;
+                case "watched":
+                    WatchedCommand(tokens);
+                    break;
+                default:
+                    throw new Exception("Command not found!");
+            }
         }
 
         private void OnErrorOccurred(string errorMessage)

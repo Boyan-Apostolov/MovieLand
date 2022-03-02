@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using MovieLand.Data.Models;
 
 namespace MovieLand.Services.Users
 {
@@ -15,5 +16,7 @@ namespace MovieLand.Services.Users
         public bool IsUserAuthenticated();
 
         public bool IsUserAdmin();
+
+        public User GetCurrentUser();
     }
 }

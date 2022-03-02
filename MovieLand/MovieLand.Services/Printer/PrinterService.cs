@@ -175,6 +175,13 @@ namespace MovieLand.Services.Printer
             Console.WriteLine(sb.ToString().Trim());
         }
 
+        public void ShowMovieCommands()
+        {
+            this.SetColorToGreen();
+            Console.WriteLine("Available commands: back; review; watched; ");
+            this.ClearConsoleColor();
+        }
+
         private bool AssuranceForDeletingMovie()
         {
             Console.Write("Are you sure you want to delete this movie? [Y/n] ");

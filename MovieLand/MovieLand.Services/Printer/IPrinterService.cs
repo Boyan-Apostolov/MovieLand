@@ -21,5 +21,7 @@ namespace MovieLand.Services.Printer
         void PrintError(string errorMessage);
         
         void InfoAboutMovie(List<string> tokens);
+
+        void ShowMovieCommands();
     }
 }

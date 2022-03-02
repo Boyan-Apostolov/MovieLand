@@ -78,5 +78,7 @@ namespace MovieLand.Services.Users
         public bool IsUserAuthenticated() => this.currentUser != null;
 
         public bool IsUserAdmin() => this.currentUser.Email == GlobalConstants.AdminEmail;
+
+        public User GetCurrentUser() => this.currentUser;
     }
 }
