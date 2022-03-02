@@ -33,7 +33,7 @@ namespace MovieLand.Services.Printer
        public void ShowAvailableCommands()
         {
             this.SetColorToGreen();
-            var result = "Available commands: help; info [id]; list [number]; ";
+            var result = "Available commands: help; info [id]; page [number]; ";
 
             if (this.userService.IsUserAuthenticated())
             {
@@ -69,19 +69,7 @@ namespace MovieLand.Services.Printer
         public void ShowCommandsInfo()
         {
             this.SetColorToYellow();
-            
-            var sb = new StringBuilder();
-            sb.AppendLine("Commands Info:")
-                .AppendLine("login -> allows the user to login to the platform")
-                .AppendLine("register -> creates a profile for the user by given email, username and password")
-                .AppendLine("help -> shows all the commands with their explanations")
-                .AppendLine("watched [id] -> by giving the id of the movie, the LOGGED user adds it to their collection of watched movies")
-                .AppendLine("review [id] -> after giving the id of a movie, the user can submit a review for the movie they have watched")
-                .AppendLine("info [id] -> the user is shown all the information about a movie - title, plot, etc")
-                .AppendLine("create/delete [id] -> only the admin has access to these commands which can help him moderate the platform")
-                .AppendLine("list [number] -> shows the page with that number");
-
-            Console.WriteLine(sb.ToString().Trim());
+            Console.WriteLine(string.Join(Environment.NewLine, GlobalConstants.AvailableCommands));
             this.ClearConsoleColor();
         }
 

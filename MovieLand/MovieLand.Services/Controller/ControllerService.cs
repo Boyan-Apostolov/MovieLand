@@ -75,7 +75,7 @@ namespace MovieLand.Services.Controller
                         case "info":
                             InfoCommand(tokens);
                             break;
-                        case "list":
+                        case "page":
                             ShowPage(tokens);
                             break;
                         default:
@@ -92,9 +92,13 @@ namespace MovieLand.Services.Controller
             Console.WriteLine("Goodbye!");
         }
 
+        //Basic paging
         private void ShowPage(List<string> tokens)
         {
-            //TODO: show the next N-number of movies
+            Console.Clear();
+            var pageNumber = int.Parse(tokens[1]) - 1;
+            this.printerService.ShowWelcomeMessage();
+            this.printerService.PrintNumberOfMovies(pageNumber * 10, GlobalConstants.PrinterConfigs.DefaultNumberOfShownMovies);
         }
 
         private void LoginCommand()
