@@ -125,11 +125,11 @@ namespace MovieLand.Services.Controller
         {
             //TODO:
             //in printer service:
-            // check if user is authenticated
-            //ask for review grade, text
-            //get the userId for the review with this.userService.GetCurrentUser().Id
-            //use reviewsService.CreateReview to add the review
-            //Show home page
+            // -check if user is authenticated
+            // -ask for review grade, text
+            // -get the userId for the review with this.userService.GetCurrentUser().Id
+            // -use reviewsService.CreateReview to add the review
+            // -Show home page
         }
 
         private void WatchedCommand(List<string> tokens)
