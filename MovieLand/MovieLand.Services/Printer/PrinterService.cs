@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using MovieLand.Common;
 using MovieLand.Services.Movies;
+using MovieLand.Services.Reviews;
 using MovieLand.Services.Users;
 
 namespace MovieLand.Services.Printer
@@ -11,12 +13,15 @@ namespace MovieLand.Services.Printer
     {
         private readonly IMovieService movieService;
         private readonly IUserService userService;
+        private readonly IReviewsService reviewsService;
 
         public PrinterService(IMovieService movieService,
-                              IUserService userService)
+                              IUserService userService,
+                              IReviewsService reviewsService)
         {
             this.movieService = movieService;
             this.userService = userService;
+            this.reviewsService = reviewsService;
         }
 
         public void ShowWelcomeMessage()
@@ -30,7 +35,7 @@ namespace MovieLand.Services.Printer
             Console.WriteLine(this.PrintSeparatorLine());
         }
 
-       public void ShowAvailableCommands()
+        public void ShowAvailableCommands()
         {
             this.SetColorToGreen();
             var result = "Available commands: help; info [id]; page [number]; ";
@@ -39,13 +44,13 @@ namespace MovieLand.Services.Printer
             {
                 result += "review [id]; watched [id]; ";
 
-                if(this.userService.IsUserAdmin()) result += "create ; delete [id]; ";
+                if (this.userService.IsUserAdmin()) result += "create ; delete [id]; ";
             }
             else
             {
                 result += "login; register;";
             }
-            
+
             Console.WriteLine(result);
             this.ClearConsoleColor();
         }
@@ -127,6 +132,47 @@ namespace MovieLand.Services.Printer
             this.SetColorToRed();
             Console.WriteLine(errorMessage);
             this.ClearConsoleColor();
+        }
+
+        public void InfoAboutMovie(List<string> tokens)
+        {
+            Console.Clear();
+
+            var sb = new StringBuilder();
+
+            var movieId = int.Parse(tokens[1]);
+            var movieInfo = this.movieService.GetMovie(movieId);
+
+            if (movieInfo == null) throw new Exception("Movie not found!");
+
+            var reviews = this.reviewsService.GetMovieReviews(movieId);
+
+            this.SetColorToYellow();
+            Console.WriteLine($"Title: {movieInfo.Title}");
+            this.ClearConsoleColor();
+
+            sb
+                .AppendLine($"Genre: {movieInfo.Genre}")
+                .AppendLine($"Plot: {movieInfo.Plot.Substring(0, Math.Min(movieInfo.Plot.Length, 200))}...")
+                .AppendLine($"Actors: {movieInfo.Actors}")
+                .AppendLine();
+
+            if (reviews.Any())
+            {
+                sb.AppendLine($"Reviews: {reviews.Average(x => x.Grade)}");
+                foreach (var review in reviews)
+                {
+                    sb.AppendLine($"{review.Grade}/10 -> {review.ReviewText}")
+                        .AppendLine($"By: {review.User.UserName}, on: {review.CreatedOn.ToShortDateString()}")
+                        .AppendLine(this.PrintSeparatorLine());
+                }
+            }
+            else
+            {
+                sb.AppendLine("No reviews!");
+            }
+
+            Console.WriteLine(sb.ToString().Trim());
         }
 
         private bool AssuranceForDeletingMovie()

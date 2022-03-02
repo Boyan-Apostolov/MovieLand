@@ -12,7 +12,9 @@ namespace MovieLand.Data.Models
 
         public DateTime CreatedOn { get; set; }
 
-        public User CreatedBy { get; set; }
+        public int UserId { get; set; }
+
+        public User User { get; set; }
 
         [Required]
         [Range(1, 10)]

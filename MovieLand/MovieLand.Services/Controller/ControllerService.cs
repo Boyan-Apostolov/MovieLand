@@ -149,6 +149,7 @@ namespace MovieLand.Services.Controller
         {
             //TODO:
             //Show the user info about the movie - title, reviews(if any), director, plot etc
+            this.printerService.InfoAboutMovie(tokens);
         }
 
         private void OnErrorOccurred(string errorMessage)

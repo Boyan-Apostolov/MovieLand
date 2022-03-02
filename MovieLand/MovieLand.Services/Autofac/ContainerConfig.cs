@@ -6,6 +6,7 @@ using MovieLand.Data;
 using MovieLand.Services.Controller;
 using MovieLand.Services.Movies;
 using MovieLand.Services.Printer;
+using MovieLand.Services.Reviews;
 using MovieLand.Services.Seeder;
 using MovieLand.Services.Users;
 
@@ -25,6 +26,7 @@ namespace MovieLand.Services.Autofac
             builder.RegisterType<PrinterService>().As<IPrinterService>();
             builder.RegisterType<SeederService>().As<ISeederService>();
             builder.RegisterType<UserService>().As<IUserService>();
+            builder.RegisterType<ReviewsService>().As<IReviewsService>();
 
             return builder.Build();
         }
