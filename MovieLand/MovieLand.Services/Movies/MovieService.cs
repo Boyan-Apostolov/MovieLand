@@ -14,11 +14,10 @@ namespace MovieLand.Services.Movies
             this.dbContext = dbContext;
         }
 
-        public void CreateMovie(int id, string title, string plot, string producer, string genre, string actors, ICollection<string> keyWords)
+        public void CreateMovie(string title, string plot, string producer, string genre, string actors, ICollection<string> keyWords)
         {
             var movie = new Movie()
             {
-                Id = id,
                 Title = title,
                 Plot = plot,
                 Producer = producer,

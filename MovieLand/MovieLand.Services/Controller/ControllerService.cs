@@ -36,51 +36,65 @@ namespace MovieLand.Services.Controller
         {
             this.printerService.ShowWelcomeMessage();
             this.printerService.PrintNumberOfMovies(0, GlobalConstants.PrinterConfigs.DefaultNumberOfShownMovies);
-            this.printerService.ShowAvailableCommands();
         }
 
         public void Run()
         {
             ShowHomePage();
+            this.printerService.ShowAvailableCommands();
+
             string userInput = "";
             while ((userInput = Console.ReadLine()) != "exit")
             {
                 var tokens = userInput.Split().ToList();
-                switch (tokens[0])
+                try
                 {
-                    case "login":
-                        LoginCommand();
-                        break;
-                    case "register":
-                        RegisterCommand();
-                        break;
-                    case "help":
-                        HelpCommand();
-                        break;
-                    case "review":
-                        RegisterCommand();
-                        break;
-                    case "watched":
-                        WatchedCommand(tokens);
-                        break;
-                    case "create":
-                        CreateCommand();
-                        break;
-                    case "delete":
-                        DeleteCommand(tokens);
-                        break;
-                    case "info":
-                        InfoCommand(tokens);
-                        break;
-                    default:
-                        //TODO: add error
-                        break;
+                    switch (tokens[0])
+                    {
+                        case "login":
+                            LoginCommand();
+                            break;
+                        case "register":
+                            RegisterCommand();
+                            break;
+                        case "help":
+                            HelpCommand();
+                            break;
+                        case "review":
+                            RegisterCommand();
+                            break;
+                        case "watched":
+                            WatchedCommand(tokens);
+                            break;
+                        case "create":
+                            CreateCommand();
+                            break;
+                        case "delete":
+                            DeleteCommand(tokens);
+                            break;
+                        case "info":
+                            InfoCommand(tokens);
+                            break;
+                        case "list":
+                            ShowPage(tokens);
+                            break;
+                        default:
+                            throw new Exception("Command not found!");
+                    }
                 }
-
+                catch (Exception e)
+                {
+                    this.OnErrorOccurred(e.Message);
+                }
                 this.printerService.ShowAvailableCommands();
             }
 
             Console.WriteLine("Goodbye!");
+        }
+
+        private void ShowPage(List<string> tokens)
+        {
+            //TODO: show the next N-number of movies
         }
 
         private void LoginCommand()
@@ -117,29 +131,25 @@ namespace MovieLand.Services.Controller
 
         private void CreateCommand()
         {
-            //TODO:
-            //Check if user has permissions(is admin)!!!
-            //Ask for parameters - title, plot, etc
-            //Create movie and go to home
             this.printerService.StartingCreatingMovie();
             ShowHomePage();
         }
 
         private void DeleteCommand(List<string> tokens)
         {
-            //TODO:
-            //Check if user has permissions(is admin)!!!
-            //Ask for confirmation
-            //Delete movie by id and go to home
-            this.printerService.StartingCreatingMovie();
+            this.printerService.DeleteMovie(tokens);
             ShowHomePage();
-
         }
 
         private void InfoCommand(List<string> tokens)
         {
             //TODO:
             //Show the user info about the movie - title, reviews(if any), director, plot etc
+        }
+
+        private void OnErrorOccurred(string errorMessage)
+        {
+            this.printerService.PrintError(errorMessage);
         }
     }
 }

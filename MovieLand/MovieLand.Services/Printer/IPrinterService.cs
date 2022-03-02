@@ -18,5 +18,6 @@ namespace MovieLand.Services.Printer
 
         public void DeleteMovie(List<string> tokens);
 
+        void PrintError(string errorMessage);
     }
 }
