@@ -6,6 +6,10 @@ namespace MovieLand.Services.Printer
 {
     public interface IPrinterService
     {
+        public string AskEmail();
+        public string AskUsername();
+        public string AskPassword();
+
         public void ShowWelcomeMessage();
 
         public void ShowAvailableCommands();

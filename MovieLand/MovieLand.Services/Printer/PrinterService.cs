@@ -127,6 +127,25 @@ namespace MovieLand.Services.Printer
             }
         }
 
+        public string AskEmail()
+        {
+            Console.WriteLine("ENTER Email:");
+            string result = Console.ReadLine();
+            return result;
+        }
+        public string AskUsername()
+        {
+            Console.WriteLine("ENTER Username:");
+            string result = Console.ReadLine();
+            return result;
+        }
+        public string AskPassword()
+        {
+            Console.WriteLine("ENTER Password:");
+            string result = Console.ReadLine();
+            return result;
+        }
+
         public void PrintError(string errorMessage)
         {
             this.SetColorToRed();
@@ -222,6 +241,7 @@ namespace MovieLand.Services.Printer
                 ? new string(' ', columnWidth)
                 : text.PadRight(columnWidth - ((columnWidth - text.Length) / 2)).PadLeft(columnWidth);
         }
+
 
         private string PrintSeparatorLine()
         {

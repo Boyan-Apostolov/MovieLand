@@ -104,16 +104,12 @@ namespace MovieLand.Services.Controller
 
         private void LoginCommand()
         {
-            //TODO:
-            //Ask user for email, username and password
-            //login profile
+            this.userService.Login(this.printerService.AskUsername(), this.printerService.AskPassword());
         }
 
         private void RegisterCommand()
         {
-            //TODO:
-            //Ask user for username and password
-            //login profile
+            this.userService.Register(this.printerService.AskEmail(), this.printerService.AskUsername(), this.printerService.AskPassword());
         }
 
         private void HelpCommand()
