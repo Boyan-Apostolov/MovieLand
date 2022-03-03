@@ -29,7 +29,18 @@ namespace MovieLand.Services.Users
             return Convert.ToBase64String(encrypted_bytes);
         }
 
-        public bool Login(string username, string password)
+        public bool ELogin(string email, string password)
+        {
+            string hashed_password = EncryptPassword(password);
+
+            var user = dbContext.Users
+                .FirstOrDefault(x => x.Email == email);
+
+            if (user.Password != hashed_password) return false;
+            this.currentUser = user;
+            return true;
+        }
+        public bool ULogin(string username, string password)
         {
             string hashed_password = EncryptPassword(password);
 
