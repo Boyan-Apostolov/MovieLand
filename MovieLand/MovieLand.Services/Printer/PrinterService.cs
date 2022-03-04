@@ -29,6 +29,9 @@ namespace MovieLand.Services.Printer
             Console.WriteLine(this.PrintSeparatorLine());
 
             var message = GlobalConstants.PrinterConfigs.WelcomeMessage;
+
+            if (this.userService.IsUserAuthenticated()) message += $", {this.userService.GetCurrentUser().UserName}";
+
             Console.SetCursorPosition((Console.WindowWidth - message.Length) / 2, Console.CursorTop);
             Console.WriteLine(message);
 
@@ -38,13 +41,13 @@ namespace MovieLand.Services.Printer
         public void ShowAvailableCommands()
         {
             this.SetColorToGreen();
-            var result = "Available commands: help; info [id]; page [number]; ";
+            var result = "Available commands: help; info [id]; page [num]; ";
 
             if (this.userService.IsUserAuthenticated())
             {
                 result += "review [id]; watched [id]; ";
 
-                if (this.userService.IsUserAdmin()) result += "create ; delete [id]; ";
+                if (this.userService.IsUserAdmin()) result += "create ; delete [id]; seed [from] [to]";
             }
             else
             {
@@ -129,7 +132,7 @@ namespace MovieLand.Services.Printer
 
         public string EmailOrUsername()
         {
-            Console.Write("Login with Username or Email[U/E]:");
+            Console.Write("Login with Username or Email[U/E]: ");
             string result = Console.ReadLine();
             if (result == "U" || result == "E")
             {
@@ -142,19 +145,19 @@ namespace MovieLand.Services.Printer
         }
         public string AskEmail()
         {
-            Console.Write("ENTER Email:");
+            Console.Write("ENTER Email: ");
             string result = Console.ReadLine();
             return result;
         }
         public string AskUsername()
         {
-            Console.Write("ENTER Username:");
+            Console.Write("ENTER Username: ");
             string result = Console.ReadLine();
             return result;
         }
         public string AskPassword()
         {
-            Console.WriteLine("ENTER Password:");
+            Console.Write("ENTER Password: ");
             string result = Console.ReadLine();
             return result;
         }

@@ -79,6 +79,7 @@ namespace MovieLand.Services.Controller
                         case "page":
                             ShowPage(tokens);
                             break;
+                        //TODO: add seeder
                         default:
                             throw new Exception("Command not found!");
                     }
@@ -104,21 +105,25 @@ namespace MovieLand.Services.Controller
 
         private void LoginCommand()
         {
-            if (this.printerService.EmailOrUsername() == "U")
+            var loginType = this.printerService.EmailOrUsername();
+            if (loginType == "U")
             {
                 this.userService.ULogin(this.printerService.AskUsername(), this.printerService.AskPassword());
             }
-            else if (this.printerService.EmailOrUsername() == "E")
+            else if (loginType == "E")
             {
                 this.userService.ELogin(this.printerService.AskEmail(), this.printerService.AskPassword());
             }
 
+            Console.Clear();
             ShowHomePage();
         }
 
         private void RegisterCommand()
         {
             this.userService.Register(this.printerService.AskEmail(), this.printerService.AskUsername(), this.printerService.AskPassword());
+
+            Console.Clear();
             ShowHomePage();
         }
 

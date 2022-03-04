@@ -25,7 +25,7 @@ namespace MovieLand.Services.Autofac
             builder.RegisterType<MovieService>().As<IMovieService>();
             builder.RegisterType<PrinterService>().As<IPrinterService>();
             builder.RegisterType<SeederService>().As<ISeederService>();
-            builder.RegisterType<UserService>().As<IUserService>();
+            builder.RegisterType<UserService>().As<IUserService>().SingleInstance();
             builder.RegisterType<ReviewsService>().As<IReviewsService>();
 
             return builder.Build();

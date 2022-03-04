@@ -17,7 +17,6 @@ namespace MovieLand.Services.Users
         public UserService(MovieLandDbContext dbContext)
         {
             this.dbContext = dbContext;
-            this.currentUser = null;
         }
 
         public string EncryptPassword(string password)
@@ -36,18 +35,19 @@ namespace MovieLand.Services.Users
             var user = dbContext.Users
                 .FirstOrDefault(x => x.Email == email);
 
-            if (user.Password != hashed_password) return false;
+            if (user == null || (user.Password != hashed_password)) throw new Exception("Unsuccessful login!");
             this.currentUser = user;
             return true;
         }
+
         public bool ULogin(string username, string password)
         {
             string hashed_password = EncryptPassword(password);
 
-            var user = dbContext.Users
-                .FirstOrDefault(x => x.UserName == username);
+            var user = dbContext.Users.FirstOrDefault(x => x.UserName == username);
 
-            if (user.Password != hashed_password) return false;
+            if (user == null || (user.Password != hashed_password)) throw new Exception("Unsuccessful login!");
+
             this.currentUser = user;
             return true;
         }
@@ -63,13 +63,13 @@ namespace MovieLand.Services.Users
             if (this.dbContext.Users.Any(x => x.UserName == username) 
                 || this.dbContext.Users.Any(x=>x.Email == email))
             {
-                return false;
+                throw new Exception("User already exists!");
             }
 
             if (!Regex.Match(email, emailPattern).Success
                 || !Regex.Match(password, passwordPattern).Success)
             {
-                return false;
+                throw new Exception("Email or password does not meet the requirements of minimum six characters, at least one uppercase letter and one lowercase letter!");
             }
 
             var user = new User()
