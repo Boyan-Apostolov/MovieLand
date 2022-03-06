@@ -64,8 +64,8 @@ namespace MovieLand.Services.Controller
                         case "review":
                             RegisterCommand();
                             break;
-                        case "watched":
-                            WatchedCommand(tokens);
+                        case "search":
+                            SearchCommand(tokens);
                             break;
                         case "create":
                             CreateCommand();
@@ -143,10 +143,9 @@ namespace MovieLand.Services.Controller
             // -Show home page
         }
 
-        private void WatchedCommand(List<string> tokens)
+        private void SearchCommand(List<string> tokens)
         {
-            //TODO:
-            //Add to user's watched movies collection
+            this.printerService.ShowSearchedMovies(tokens);
         }
 
         private void CreateCommand()
@@ -176,8 +175,8 @@ namespace MovieLand.Services.Controller
                 case "review":
                     ReviewCommand(tokens);
                     break;
-                case "watched":
-                    WatchedCommand(tokens);
+                case "search":
+                    SearchCommand(tokens);
                     break;
                 default:
                     throw new Exception("Command not found!");

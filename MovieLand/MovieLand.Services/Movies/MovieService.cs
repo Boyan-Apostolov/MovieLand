@@ -2,6 +2,7 @@
 using MovieLand.Data.Models;
 using MovieLand.Data;
 using System.Linq;
+using MovieLand.Services.DTOs;
 
 namespace MovieLand.Services.Movies
 {
@@ -14,16 +15,16 @@ namespace MovieLand.Services.Movies
             this.dbContext = dbContext;
         }
 
-        public void CreateMovie(string title, string plot, string producer, string genre, string actors, ICollection<string> keyWords)
+        public void CreateMovie(CreateMovieDTO movieToCreate)
         {
             var movie = new Movie()
             {
-                Title = title,
-                Plot = plot,
-                Producer = producer,
-                Genre = genre,
-                Actors = actors,
-                KeyWords = keyWords
+                Title = movieToCreate.Title,
+                Plot = movieToCreate.Plot,
+                Producer = movieToCreate.Plot,
+                Genre = movieToCreate.Genre,
+                Actors = movieToCreate.Actors,
+                KeyWords = movieToCreate.Keywords
             };
 
             this.dbContext.Movies.Add(movie);
@@ -38,6 +39,11 @@ namespace MovieLand.Services.Movies
         public List<Movie> GetNumberOfMovies(int countToSkip, int countToTake)
         {
             return this.dbContext.Movies.Skip(countToSkip).Take(countToTake).ToList();
+        }
+
+        public List<Movie> SearchMovies(string title)
+        {
+            return this.dbContext.Movies.Where(x => x.Title.Contains(title)).ToList();
         }
 
         public bool DeleteMovie(int id)

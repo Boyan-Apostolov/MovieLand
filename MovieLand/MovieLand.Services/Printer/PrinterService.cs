@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MovieLand.Common;
+using MovieLand.Services.DTOs;
 using MovieLand.Services.Movies;
 using MovieLand.Services.Reviews;
 using MovieLand.Services.Users;
@@ -41,11 +42,11 @@ namespace MovieLand.Services.Printer
         public void ShowAvailableCommands()
         {
             this.SetColorToGreen();
-            var result = "Available commands: help; info [id]; page [num]; ";
+            var result = "Available commands: help; info [id]; page [num]; search [title] ";
 
             if (this.userService.IsUserAuthenticated())
             {
-                result += "review [id]; watched [id]; ";
+                result += "review [id]; ";
 
                 if (this.userService.IsUserAdmin()) result += "create ; delete [id]; seed [from] [to]";
             }
@@ -99,7 +100,16 @@ namespace MovieLand.Services.Printer
                 Console.Write("Movie key words: ");
                 ICollection<string> keyWords = Console.ReadLine().Split();
 
-                this.movieService.CreateMovie(title, plot, producer, genre, actors, keyWords);
+                var movie = new CreateMovieDTO()
+                {
+                    Title = title,
+                    Plot = plot,
+                    Producer = producer,
+                    Genre = genre,
+                    Actors = actors,
+                    Keywords = keyWords
+                };
+                this.movieService.CreateMovie(movie);
                 Console.Clear();
                 Console.WriteLine("Movie was created successfully.");
             }
@@ -143,18 +153,21 @@ namespace MovieLand.Services.Printer
                 throw new Exception("Invalid character!");
             }
         }
+
         public string AskEmail()
         {
             Console.Write("ENTER Email: ");
             string result = Console.ReadLine();
             return result;
         }
+
         public string AskUsername()
         {
             Console.Write("ENTER Username: ");
             string result = Console.ReadLine();
             return result;
         }
+
         public string AskPassword()
         {
             Console.Write("ENTER Password: ");
@@ -213,15 +226,26 @@ namespace MovieLand.Services.Printer
         public void ShowMovieCommands()
         {
             this.SetColorToGreen();
-            Console.WriteLine("Available commands: back; review; watched; ");
+            Console.WriteLine("Available commands: back; review; ");
             this.ClearConsoleColor();
         }
 
-        private bool AssuranceForDeletingMovie()
+        public void ShowSearchedMovies(List<string> tokens)
         {
-            Console.Write("Are you sure you want to delete this movie? [Y/n] ");
+            Console.Clear();
 
-            return Console.ReadLine() == "Y";
+            var movies = this.movieService.SearchMovies(tokens[1]);
+
+            this.SetColorToYellow();
+            Console.WriteLine(this.PrintHomeRow(new[] { "Id", "Title", "Actors", "Producer" }));
+            this.ClearConsoleColor();
+
+            foreach (var movie in movies)
+            {
+                Console.WriteLine(
+                    this.PrintHomeRow(new[] { movie.Id.ToString(), movie.Title, string.Join(", ", movie.Actors), movie.Producer })
+                );
+            }
         }
 
         public string PrintHomeRow(string[] columns)
@@ -235,6 +259,13 @@ namespace MovieLand.Services.Printer
                 .Append(this.PrintSeparatorLine());
 
             return sb.ToString().Trim();
+        }
+
+        private bool AssuranceForDeletingMovie()
+        {
+            Console.Write("Are you sure you want to delete this movie? [Y/n] ");
+
+            return Console.ReadLine() == "Y";
         }
 
         private string PrintLinePart(string text, int columnWidth, bool isLast = false)
@@ -257,7 +288,6 @@ namespace MovieLand.Services.Printer
                 ? new string(' ', columnWidth)
                 : text.PadRight(columnWidth - ((columnWidth - text.Length) / 2)).PadLeft(columnWidth);
         }
-
 
         private string PrintSeparatorLine()
         {

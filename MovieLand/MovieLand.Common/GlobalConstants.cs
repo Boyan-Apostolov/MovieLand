@@ -19,7 +19,7 @@ namespace MovieLand.Common
             "login -> allows the user to login to the platform",
             "register -> creates a profile for the user by given email, username and password",
             "help -> shows all the commands with their explanations",
-            "watched [id] -> by giving the id of the movie, the LOGGED user adds it to their collection of watched movies",
+            "search [title] -> searching movies by title",
             "review [id] -> after giving the id of a movie, the user can submit a review for the movie they have watched",
             "info [id] -> the user is shown all the information about a movie - title, plot, etc",
             "page [number] -> shows the page with that number",
