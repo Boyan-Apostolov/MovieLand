@@ -26,6 +26,8 @@ namespace MovieLand.Services.Printer
 
         public void DeleteMovie(List<string> tokens);
 
+        public void ReviewMovie(List<string> tokens);
+
         void PrintError(string errorMessage);
         
         void InfoAboutMovie(List<string> tokens);

@@ -8,6 +8,7 @@ using MovieLand.Services.Movies;
 using MovieLand.Services.Printer;
 using MovieLand.Services.Seeder;
 using MovieLand.Services.Users;
+using MovieLand.Services.Reviews;
 
 namespace MovieLand.Services.Controller
 {
@@ -19,12 +20,14 @@ namespace MovieLand.Services.Controller
         private IMovieService movieService;
         private IPrinterService printerService;
         private ISeederService seederService;
+        private IReviewsService reviewsService;
 
         public ControllerService(MovieLandDbContext dbContext,
                                 ISeederService seederService,
                                 IMovieService movieService,
                                 IUserService userService,
-                                IPrinterService printerService)
+                                IPrinterService printerService,
+                                IReviewsService reviewsService)
         {
             this.dbContext = dbContext;
             this.seederService = seederService;
@@ -143,6 +146,9 @@ namespace MovieLand.Services.Controller
             // -get the userId for the review with this.userService.GetCurrentUser().Id
             // -use reviewsService.CreateReview to add the review
             // -Show home page
+            this.printerService.ReviewMovie(tokens);
+            Console.Clear();
+            ShowHomePage();
         }
 
         private void SearchCommand(List<string> tokens)

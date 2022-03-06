@@ -123,6 +123,26 @@ namespace MovieLand.Services.Printer
             }
         }
 
+        public void ReviewMovie(List<string> tokens)
+        {
+            this.SetColorToYellow();
+            int id = int.Parse(tokens[1]);
+            if (this.userService.IsUserAuthenticated() && this.userService.IsUserAdmin())
+            {
+                Console.Write("Enter grade: ");
+                double grade = double.Parse(Console.ReadLine());
+                Console.Write("Enter review: ");
+                string reviewText = Console.ReadLine();
+                int idUser= this.userService.GetCurrentUser().Id;
+
+                reviewsService.CreateReview(id, grade, reviewText, idUser);
+            }
+            else
+            {
+                throw new Exception("Access denied!");
+            }
+        }
+
         public void DeleteMovie(List<string> tokens)
         {
             this.SetColorToRed();

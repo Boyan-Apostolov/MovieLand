@@ -15,6 +15,7 @@ namespace MovieLand.Services.Reviews
         public ReviewsService(MovieLandDbContext dbContext)
         {
             this.dbContext = dbContext;
+
         }
 
         public List<Review> GetMovieReviews(int movieId)
