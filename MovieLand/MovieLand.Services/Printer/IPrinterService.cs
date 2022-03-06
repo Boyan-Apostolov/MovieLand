@@ -33,5 +33,7 @@ namespace MovieLand.Services.Printer
         void ShowMovieCommands();
         
         void ShowSearchedMovies(List<string> tokens);
+        
+        void SeedMovies(List<string> tokens);
     }
 }

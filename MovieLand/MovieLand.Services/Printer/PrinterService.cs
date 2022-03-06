@@ -6,6 +6,7 @@ using MovieLand.Common;
 using MovieLand.Services.DTOs;
 using MovieLand.Services.Movies;
 using MovieLand.Services.Reviews;
+using MovieLand.Services.Seeder;
 using MovieLand.Services.Users;
 
 namespace MovieLand.Services.Printer
@@ -15,14 +16,17 @@ namespace MovieLand.Services.Printer
         private readonly IMovieService movieService;
         private readonly IUserService userService;
         private readonly IReviewsService reviewsService;
+        private readonly ISeederService seederService;
 
         public PrinterService(IMovieService movieService,
                               IUserService userService,
-                              IReviewsService reviewsService)
+                              IReviewsService reviewsService,
+                              ISeederService seederService)
         {
             this.movieService = movieService;
             this.userService = userService;
             this.reviewsService = reviewsService;
+            this.seederService = seederService;
         }
 
         public void ShowWelcomeMessage()
@@ -246,6 +250,20 @@ namespace MovieLand.Services.Printer
                     this.PrintHomeRow(new[] { movie.Id.ToString(), movie.Title, string.Join(", ", movie.Actors), movie.Producer })
                 );
             }
+        }
+
+        public void SeedMovies(List<string> tokens)
+        {
+            Console.Clear();
+            var from = int.Parse(tokens[1]);
+            var to = int.Parse(tokens[2]);
+
+            SetColorToYellow();
+            Console.WriteLine($"Seeding {to - from + 1} movies");
+
+            var seededMovies = this.seederService.SeedMovies(from, to);
+            Console.WriteLine($"Successfully seeded {seededMovies} movies!");
+            ClearConsoleColor();
         }
 
         public string PrintHomeRow(string[] columns)

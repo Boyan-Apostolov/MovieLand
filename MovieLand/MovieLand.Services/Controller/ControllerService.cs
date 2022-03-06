@@ -79,7 +79,9 @@ namespace MovieLand.Services.Controller
                         case "page":
                             ShowPage(tokens);
                             break;
-                        //TODO: add seeder
+                        case "seed":
+                            SeedCommand(tokens);
+                            break;
                         default:
                             throw new Exception("Command not found!");
                     }
@@ -181,6 +183,12 @@ namespace MovieLand.Services.Controller
                 default:
                     throw new Exception("Command not found!");
             }
+        }
+
+        private void SeedCommand(List<string> tokens)
+        {
+            this.printerService.SeedMovies(tokens);
+            ShowHomePage();
         }
 
         private void OnErrorOccurred(string errorMessage)
