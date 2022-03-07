@@ -55,7 +55,7 @@ namespace MovieLand.Services.Users
         public bool Register(string email, string username, string password)
         {
             //test@test.com
-            var emailPattern = @"[A-z]+@+[A-z]+\.+[A-z]+";
+            var emailPattern = @"[A-z0-9]+@+[A-z]+\.+[A-z]+";
 
             //Minimum six characters, at least one uppercase letter, one lowercase letter and one number:
             var passwordPattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$";

@@ -4,6 +4,7 @@ using System.Text;
 using Autofac;
 using MovieLand.Data;
 using MovieLand.Main;
+using MovieLand.Services.Emailing;
 using MovieLand.Services.Movies;
 using MovieLand.Services.Printer;
 using MovieLand.Services.Reviews;
@@ -27,6 +28,7 @@ namespace MovieLand.Main.Autofac
             builder.RegisterType<SeederService>().As<ISeederService>();
             builder.RegisterType<UserService>().As<IUserService>().SingleInstance();
             builder.RegisterType<ReviewsService>().As<IReviewsService>();
+            builder.RegisterType<EmailSenderService>().As<IEmailSenderService>();
 
             return builder.Build();
         }

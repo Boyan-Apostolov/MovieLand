@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using MovieLand.Common;
 using MovieLand.Services.DTOs;
+using MovieLand.Services.Emailing;
 using MovieLand.Services.Movies;
 using MovieLand.Services.Reviews;
 using MovieLand.Services.Seeder;
@@ -17,16 +18,19 @@ namespace MovieLand.Services.Printer
         private readonly IUserService userService;
         private readonly IReviewsService reviewsService;
         private readonly ISeederService seederService;
+        private readonly IEmailSenderService emailSender;
 
         public PrinterService(IMovieService movieService,
                               IUserService userService,
                               IReviewsService reviewsService,
-                              ISeederService seederService)
+                              ISeederService seederService,
+                              IEmailSenderService emailSender)
         {
             this.movieService = movieService;
             this.userService = userService;
             this.reviewsService = reviewsService;
             this.seederService = seederService;
+            this.emailSender = emailSender;
         }
 
         public void ShowWelcomeMessage()
@@ -133,9 +137,22 @@ namespace MovieLand.Services.Printer
                 double grade = double.Parse(Console.ReadLine());
                 Console.Write("Enter review: ");
                 string reviewText = Console.ReadLine();
-                int idUser= this.userService.GetCurrentUser().Id;
 
-                reviewsService.CreateReview(id, grade, reviewText, idUser);
+                int idUser = this.userService.GetCurrentUser().Id;
+                this.reviewsService.CreateReview(id, grade, reviewText, idUser);
+                Console.WriteLine("Sending notifications...");
+
+                var movieTitle = this.movieService.GetMovie(id).Title;
+                var movieReviews = this.reviewsService.GetMovieReviews(id);
+                foreach (var user in movieReviews.Select(x => x.User).Distinct())
+                {
+                    var emailContent = String.Format(GlobalConstants.SendGridConfig.NewReviewContent, user.UserName, movieTitle);
+
+                    this.emailSender.NotifyUser(user.Email,
+                        GlobalConstants.SendGridConfig.NewReviewSubject, emailContent);
+                }
+
+                this.ClearConsoleColor();
             }
             else
             {

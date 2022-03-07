@@ -26,6 +26,20 @@ namespace MovieLand.Common
             "create/delete [id] -> only the admin has access to these commands which can help him moderate the platform"
         };
 
+        public class SendGridConfig
+        {
+            public const string SendGridKey = "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";
+
+            public const string EmailSenderName = "Movie Land";
+
+            public const string EmailSender = "movie.land.it@gmail.com";
+
+            public const string NewReviewSubject = "There is a new review about a movie you have watched!";
+
+            public const string NewReviewContent =
+                "Hello dear {0}, you are receiving this message because there is a new opinion on the '{1}' movie you have reviewed. Check out the app to see it!";
+        }
+
         public class PrinterConfigs
         {
             public const string ColumnSeparator = "|";
