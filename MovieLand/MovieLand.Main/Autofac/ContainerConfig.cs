@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using Autofac;
 using MovieLand.Data;
-using MovieLand.Services.Controller;
+using MovieLand.Main;
 using MovieLand.Services.Movies;
 using MovieLand.Services.Printer;
 using MovieLand.Services.Reviews;
 using MovieLand.Services.Seeder;
 using MovieLand.Services.Users;
 
-namespace MovieLand.Services.Autofac
+namespace MovieLand.Main.Autofac
 {
     public static class ContainerConfig
     {
@@ -20,7 +20,7 @@ namespace MovieLand.Services.Autofac
 
             builder.RegisterType<MovieLandDbContext>();
 
-            builder.RegisterType<ControllerService>();
+            builder.RegisterType<Controller>();
 
             builder.RegisterType<MovieService>().As<IMovieService>();
             builder.RegisterType<PrinterService>().As<IPrinterService>();

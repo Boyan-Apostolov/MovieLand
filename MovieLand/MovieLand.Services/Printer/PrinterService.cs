@@ -127,9 +127,9 @@ namespace MovieLand.Services.Printer
         {
             this.SetColorToYellow();
             int id = int.Parse(tokens[1]);
-            if (this.userService.IsUserAuthenticated() && this.userService.IsUserAdmin())
+            if (this.userService.IsUserAuthenticated())
             {
-                Console.Write("Enter grade: ");
+                Console.Write("Enter grade[1-10]: ");
                 double grade = double.Parse(Console.ReadLine());
                 Console.Write("Enter review: ");
                 string reviewText = Console.ReadLine();
@@ -231,7 +231,7 @@ namespace MovieLand.Services.Printer
 
             if (reviews.Any())
             {
-                sb.AppendLine($"Reviews: {reviews.Average(x => x.Grade)}");
+                sb.AppendLine($"Reviews: {reviews.Average(x => x.Grade):f2}");
                 foreach (var review in reviews)
                 {
                     sb.AppendLine($"{review.Grade}/10 -> {review.ReviewText}")

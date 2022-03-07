@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Net.Mime;
 using Autofac;
 using Microsoft.EntityFrameworkCore;
 
 using MovieLand.Data;
-using MovieLand.Services.Autofac;
-using MovieLand.Services.Controller;
+using MovieLand.Main.Autofac;
 
 namespace MovieLand.Main
 {
@@ -33,7 +31,7 @@ namespace MovieLand.Main
 
             using (var scope = container.BeginLifetimeScope())
             {
-                var app = scope.Resolve<ControllerService>();
+                var app = scope.Resolve<Controller>();
 
                 app.Run();
             }

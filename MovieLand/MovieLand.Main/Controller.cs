@@ -10,9 +10,9 @@ using MovieLand.Services.Seeder;
 using MovieLand.Services.Users;
 using MovieLand.Services.Reviews;
 
-namespace MovieLand.Services.Controller
+namespace MovieLand.Main
 {
-    public class ControllerService : IControllerService
+    public class Controller 
     {
         private readonly MovieLandDbContext dbContext;
 
@@ -22,7 +22,7 @@ namespace MovieLand.Services.Controller
         private ISeederService seederService;
         private IReviewsService reviewsService;
 
-        public ControllerService(MovieLandDbContext dbContext,
+        public Controller(MovieLandDbContext dbContext,
                                 ISeederService seederService,
                                 IMovieService movieService,
                                 IUserService userService,
@@ -65,7 +65,7 @@ namespace MovieLand.Services.Controller
                             HelpCommand();
                             break;
                         case "review":
-                            RegisterCommand();
+                            ReviewCommand(tokens);
                             break;
                         case "search":
                             SearchCommand(tokens);
@@ -139,13 +139,6 @@ namespace MovieLand.Services.Controller
 
         private void ReviewCommand(List<string> tokens)
         {
-            //TODO:
-            //in printer service:
-            // -check if user is authenticated
-            // -ask for review grade, text
-            // -get the userId for the review with this.userService.GetCurrentUser().Id
-            // -use reviewsService.CreateReview to add the review
-            // -Show home page
             this.printerService.ReviewMovie(tokens);
             Console.Clear();
             ShowHomePage();
