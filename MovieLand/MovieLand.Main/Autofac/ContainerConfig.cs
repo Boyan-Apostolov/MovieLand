@@ -13,6 +13,7 @@ using MovieLand.Services.Users;
 
 namespace MovieLand.Main.Autofac
 {
+    //Autofac configuration
     public static class ContainerConfig
     {
         public static IContainer Configure()

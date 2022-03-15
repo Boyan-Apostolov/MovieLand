@@ -95,13 +95,14 @@ namespace MovieLand.Services.Printer
             if (this.userService.IsUserAuthenticated() && this.userService.IsUserAdmin())
             {
                 Console.Clear();
-                Console.Write("Movie title: ");
+                // * - required field
+                Console.Write("*Movie title: ");
                 string title = Console.ReadLine();
-                Console.Write("Movie plot: ");
+                Console.Write("*Movie plot: ");
                 string plot = Console.ReadLine();
-                Console.Write("Movie producer: ");
+                Console.Write("*Movie producer: ");
                 string producer = Console.ReadLine();
-                Console.Write("Movie genre: ");
+                Console.Write("*Movie genre: ");
                 string genre = Console.ReadLine();
                 Console.Write("Movie actors: ");
                 string actors = Console.ReadLine();
@@ -140,8 +141,9 @@ namespace MovieLand.Services.Printer
 
                 int idUser = this.userService.GetCurrentUser().Id;
                 this.reviewsService.CreateReview(id, grade, reviewText, idUser);
-                Console.WriteLine("Sending notifications...");
 
+                //Sending notifications to other users who have reviewed the movie about the new review
+                Console.WriteLine("Sending notifications...");
                 var movieTitle = this.movieService.GetMovie(id).Title;
                 var movieReviews = this.reviewsService.GetMovieReviews(id);
                 foreach (var user in movieReviews.Select(x => x.User).Distinct())

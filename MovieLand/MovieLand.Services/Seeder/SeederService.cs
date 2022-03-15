@@ -22,12 +22,15 @@ namespace MovieLand.Services.Seeder
 
         public int SeedMovies(int fromCount, int toCount)
         {
+            //saves info about the first 250 movies
             string top250MoviesJson = new WebClient().DownloadString(GlobalConstants.Top250MoviesEndpoint);
 
+            // converts top250MoviesJson from string into Top250MoviesDTO format
             var results = JsonConvert.DeserializeObject<Top250MoviesDTO>(top250MoviesJson);
 
             for (int i = fromCount; i <= toCount; i++)
             {
+                //takes all available info of the movie based on the id
                 var movieJson = new WebClient()
                     .DownloadString(
                         string.Format(GlobalConstants.MovieInfoEndpoint, results.Items[i].Id));

@@ -26,7 +26,7 @@ namespace MovieLand.Main
         {
             var dbContext = new MovieLandDbContext();
             dbContext.Database.Migrate();
-
+            // autofac
             var container = ContainerConfig.Configure();
 
             using (var scope = container.BeginLifetimeScope())

@@ -69,7 +69,7 @@ namespace MovieLand.Services.Users
             if (!Regex.Match(email, emailPattern).Success
                 || !Regex.Match(password, passwordPattern).Success)
             {
-                throw new Exception("Email or password does not meet the requirements of minimum six characters, at least one uppercase letter and one lowercase letter!");
+                throw new Exception("Email or password does not meet the requirements!");
             }
 
             var user = new User()
