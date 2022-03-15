@@ -36,6 +36,7 @@ List of all imported movies along with the available commands.
 **Register page**
 
 This page uses custom **RegEx** checks for email and password.
+
 ![Register](https://i.ibb.co/2YWSGWr/reg.png)
 
 **Help section**
@@ -51,20 +52,24 @@ Here the users can see all available information about the movies, along with th
 **Movie review**
 
 Every logged user can review all movies. When submitting a review, all users with previous reviews on that movie receive an email, telling them about the new review.
+
 ![Review](https://i.ibb.co/PMsyLMM/reviw.png)
 ![Email](https://i.ibb.co/16Nz3mt/email.png)
 
 **Create movie**
 
 Only the admin can create movies
+
 ![creating movies](https://i.ibb.co/KGcYHwb/add-movie.png)
 
 **Seeding**
 
 The admin can choose how many movies to import from the IMDb API
+
 ![Seed](https://i.ibb.co/26RQ6d1/seed.png)
 
 **Deleting movies**
 
 Only the admin can delete movies after a confirmation.
+
 ![del](https://i.ibb.co/7G5GTmp/del.png)
