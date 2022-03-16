@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MovieLand.Services.Printer
 {
@@ -26,7 +27,7 @@ namespace MovieLand.Services.Printer
 
         public void DeleteMovie(List<string> tokens);
 
-        public void ReviewMovie(List<string> tokens);
+        public Task ReviewMovie(List<string> tokens);
 
         void PrintError(string errorMessage);
         

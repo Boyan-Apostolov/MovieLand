@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using MovieLand.Common;
 using MovieLand.Services.DTOs;
 using MovieLand.Services.Emailing;
@@ -128,7 +129,7 @@ namespace MovieLand.Services.Printer
             }
         }
 
-        public void ReviewMovie(List<string> tokens)
+        public async Task ReviewMovie(List<string> tokens)
         {
             this.SetColorToYellow();
             int id = int.Parse(tokens[1]);
@@ -150,7 +151,7 @@ namespace MovieLand.Services.Printer
                 {
                     var emailContent = String.Format(GlobalConstants.SendGridConfig.NewReviewContent, user.UserName, movieTitle);
 
-                    this.emailSender.NotifyUser(user.Email,
+                    await this.emailSender.NotifyUser(user.Email,
                         GlobalConstants.SendGridConfig.NewReviewSubject, emailContent);
                 }
 
