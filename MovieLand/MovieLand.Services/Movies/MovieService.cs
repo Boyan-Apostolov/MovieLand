@@ -15,7 +15,7 @@ namespace MovieLand.Services.Movies
             this.dbContext = dbContext;
         }
 
-        public void CreateMovie(CreateMovieDTO movieToCreate)
+        public int CreateMovie(CreateMovieDTO movieToCreate)
         {
             var movie = new Movie()
             {
@@ -29,6 +29,7 @@ namespace MovieLand.Services.Movies
 
             this.dbContext.Movies.Add(movie);
             this.dbContext.SaveChanges();
+            return movie.Id;
         }
 
         public Movie? GetMovie(int id)
@@ -48,7 +49,7 @@ namespace MovieLand.Services.Movies
 
         public bool DeleteMovie(int id)
         {
-            var movie = this.dbContext.Movies.FirstOrDefault(x => x.Id == id); ;
+            var movie = this.dbContext.Movies.FirstOrDefault(x => x.Id == id);
 
             if (movie != null)
             {

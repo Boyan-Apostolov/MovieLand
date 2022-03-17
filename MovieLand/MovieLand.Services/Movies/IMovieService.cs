@@ -8,7 +8,7 @@ namespace MovieLand.Services.Movies
 {
     public interface IMovieService
     {
-        public void CreateMovie(CreateMovieDTO movieToCreate);
+        public int CreateMovie(CreateMovieDTO movieToCreate);
 
         public Movie? GetMovie(int id);
 
