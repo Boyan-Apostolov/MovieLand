@@ -22,6 +22,7 @@ namespace MovieLand.Tests
 
         public BaseTestClass()
         {
+            this.dbContext = new MovieLandDbContext();
             this.emailService = new EmailSenderService();
             this.movieService = new MovieService(dbContext);
             this.reviewsService = new ReviewsService(dbContext);
