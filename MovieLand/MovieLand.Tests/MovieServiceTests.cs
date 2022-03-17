@@ -60,9 +60,10 @@ namespace MovieLand.Tests
             var movie = this.movieService.CreateMovie(data10);
             var movie1 = this.movieService.CreateMovie(data11);
 
-            List<Movie> movies213 = this.movieService.SearchMovies("TTitle");
+            List<Movie> movies213 = this.movieService.SearchMovies("TTest");
 
             Assert.AreEqual(movies213.Count , 2);
+
             var abmovie = this.dbContext.Movies.First(x => x.Title == "TTest");
             var acmovie = this.dbContext.Movies.First(x => x.Title == "TTest01");
             this.dbContext.Movies.Remove(abmovie);
