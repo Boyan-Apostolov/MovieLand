@@ -12,7 +12,7 @@ using MovieLand.Services.Reviews;
 
 namespace MovieLand.Main
 {
-    public class Controller 
+    public class Controller
     {
         private readonly MovieLandDbContext dbContext;
 
@@ -110,15 +110,7 @@ namespace MovieLand.Main
 
         private void LoginCommand()
         {
-            var loginType = this.printerService.EmailOrUsername();
-            if (loginType == "U")
-            {
-                this.userService.ULogin(this.printerService.AskUsername(), this.printerService.AskPassword());
-            }
-            else if (loginType == "E")
-            {
-                this.userService.ELogin(this.printerService.AskEmail(), this.printerService.AskPassword());
-            }
+            this.userService.Login(this.printerService.AskIdentificator(), this.printerService.AskPassword());
 
             Console.Clear();
             ShowHomePage();

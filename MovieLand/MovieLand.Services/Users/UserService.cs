@@ -28,26 +28,23 @@ namespace MovieLand.Services.Users
             return Convert.ToBase64String(encrypted_bytes);
         }
 
-        public bool ELogin(string email, string password)
+        public bool Login(string identificator, string password)
         {
             string hashed_password = EncryptPassword(password);
+            User user = null;
 
-            var user = dbContext.Users
-                .FirstOrDefault(x => x.Email == email);
-
-            if (user == null || (user.Password != hashed_password)) throw new Exception("Unsuccessful login!");
-            this.currentUser = user;
-            return true;
-        }
-
-        public bool ULogin(string username, string password)
-        {
-            string hashed_password = EncryptPassword(password);
-
-            var user = dbContext.Users.FirstOrDefault(x => x.UserName == username);
+            if (identificator.Contains("@"))
+            {//Logging in with an email
+                user = dbContext.Users
+                    .FirstOrDefault(x => x.Email == identificator);
+            }
+            else
+            {//Logging in with username
+                user = dbContext.Users
+                    .FirstOrDefault(x => x.UserName == identificator);
+            }
 
             if (user == null || (user.Password != hashed_password)) throw new Exception("Unsuccessful login!");
-
             this.currentUser = user;
             return true;
         }

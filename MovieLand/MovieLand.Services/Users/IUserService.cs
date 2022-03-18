@@ -9,8 +9,7 @@ namespace MovieLand.Services.Users
     {
         public string EncryptPassword(string password);
 
-        public bool ELogin(string email, string password);
-        public bool ULogin(string username, string password);
+        public bool Login(string identificator, string password);
 
         public bool Register(string email, string username, string password);
 

@@ -59,39 +59,6 @@ namespace MovieLand.Tests
         }
 
         [Test]
-        public void ULoginShouldReturnTrue()
-        {
-            string password = "Admin123";
-            var email = Guid.NewGuid().ToString() + "@test.com";
-
-
-            this.userService.Register(email, email, password);
-
-            bool result = this.userService.ULogin(email, password);
-
-            Assert.IsTrue(result);
-
-            this.RemoveUser(email);
-        }
-
-        [Test]
-        public void ULoginShouldReturnThrowWhenIncorrect()
-        {
-            string password = "Admin123";
-            var email = Guid.NewGuid().ToString() + "@test.com";
-
-
-            this.userService.Register(email, email, password);
-
-            Assert.Throws<Exception>(() =>
-            {
-                this.userService.ULogin(email, "not-correct");
-            });
-
-            this.RemoveUser(email);
-        }
-
-        [Test]
         public void ELoginShouldReturnTrue()
         {
             string password = "Admin123";
@@ -99,7 +66,7 @@ namespace MovieLand.Tests
 
             this.userService.Register(email, email, password);
 
-            bool result = this.userService.ELogin(email, password);
+            bool result = this.userService.Login(email, password);
 
             Assert.IsTrue(result);
 
@@ -116,7 +83,7 @@ namespace MovieLand.Tests
 
             Assert.Throws<Exception>(() =>
             {
-                this.userService.ELogin(email, "a");
+                this.userService.Login(email, "a");
             });
 
             this.RemoveUser(email);

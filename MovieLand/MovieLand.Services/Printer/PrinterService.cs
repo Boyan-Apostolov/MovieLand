@@ -183,38 +183,30 @@ namespace MovieLand.Services.Printer
                 throw new Exception("Access denied!");
             }
         }
-
-        public string EmailOrUsername()
+        public string AskIdentificator()
         {
-            Console.Write("Login with Username or Email[U/E]: ");
-            string result = Console.ReadLine();
-            if (result == "U" || result == "E")
-            {
-                return result;
-            }
-            else
-            {
-                throw new Exception("Invalid character!");
-            }
-        }
-
-        public string AskEmail()
-        {
-            Console.Write("ENTER Email: ");
+            Console.Write("Enter you username or email: ");
             string result = Console.ReadLine();
             return result;
         }
 
         public string AskUsername()
         {
-            Console.Write("ENTER Username: ");
+            Console.Write("Enter Username: ");
+            string result = Console.ReadLine();
+            return result;
+        }
+
+        public string AskEmail()
+        {
+            Console.Write("Enter Email: ");
             string result = Console.ReadLine();
             return result;
         }
 
         public string AskPassword()
         {
-            Console.Write("ENTER Password: ");
+            Console.Write("Enter Password: ");
             string result = Console.ReadLine();
             return result;
         }
