@@ -15,7 +15,7 @@ This is a simple C# app for searching and reviewing movies /CLI IMDb/
 | **Права**       | Admin | User | Guest |
 | --------------- | ----- | ---- | ----- |
 | Login           | ❌    | ❌   | ✅    |
-| Login           | ❌    | ❌   | ✅    |
+| Register        | ❌    | ❌   | ✅    |
 | View all movies | ✅    | ✅   | ✅    |
 | Serch movies    | ✅    | ✅   | ✅    |
 | View Movie Info | ✅    | ✅   | ✅    |
@@ -73,3 +73,7 @@ The admin can choose how many movies to import from the IMDb API
 Only the admin can delete movies after a confirmation.
 
 ![del](https://i.ibb.co/7G5GTmp/del.png)
+
+**Testing**
+
+![tests](https://i.ibb.co/gFgmRZW/test.png)

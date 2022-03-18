@@ -10,14 +10,6 @@ namespace MovieLand.Tests
 {
     public class MovieServiceTests : BaseTestClass
     {
-        
-        public void RemoveMovie()
-        {
-            var abmovie = this.dbContext.Movies.First(x => x.Title == "TTest");
-            this.dbContext.Movies.Remove(abmovie);
-            this.dbContext.SaveChanges();
-        }
-
         static readonly CreateMovieDTO data10 = new CreateMovieDTO()
         {
             Actors = "Test",
@@ -28,7 +20,7 @@ namespace MovieLand.Tests
                 },
             Plot = "Plto01",
             Producer = "T.Test",
-            Title = "TTest",
+            Title = "TTestTEST_CASE",
         };
         static readonly CreateMovieDTO data11 = new CreateMovieDTO()
         {
@@ -40,7 +32,7 @@ namespace MovieLand.Tests
                 },
             Plot = "Plto01",
             Producer = "T.Test",
-            Title = "TTest01",
+            Title = "TTest01TEST_CASE",
         };
 
         [Test]
@@ -50,53 +42,52 @@ namespace MovieLand.Tests
 
             Assert.AreEqual(data10.Title, this.movieService.GetMovie(id).Title);
 
-            var abmovie = this.dbContext.Movies.First(x => x.Title == "TTest");
-            this.dbContext.Movies.Remove(abmovie);
-            this.dbContext.SaveChanges();
+            this.RemoveMovie("TTestTEST_CASE");
         }
+
         [Test]
         public void SearchMovieShouldBeTRUE()
         {
             var movie = this.movieService.CreateMovie(data10);
             var movie1 = this.movieService.CreateMovie(data11);
 
-            List<Movie> movies213 = this.movieService.SearchMovies("TTest");
+            List<Movie> movies213 = this.movieService.SearchMovies("TEST_CASE");
 
             Assert.AreEqual(movies213.Count , 2);
 
-            var abmovie = this.dbContext.Movies.First(x => x.Title == "TTest");
-            var acmovie = this.dbContext.Movies.First(x => x.Title == "TTest01");
-            this.dbContext.Movies.Remove(abmovie);
-            this.dbContext.Movies.Remove(acmovie);
-            this.dbContext.SaveChanges();
+            this.RemoveMovie("TTestTEST_CASE");
+            this.RemoveMovie("TTest01TEST_CASE");
 
         }
 
         [Test]
-        public void DelMovies()
+        public void DelMoviesShouldRemoveThem()
         {
             int id = this.movieService.CreateMovie(data10);
 
             bool reslut = this.movieService.DeleteMovie(id);
 
             Assert.IsTrue(reslut);
+            Assert.Null(this.dbContext.Movies.FirstOrDefault(x=>x.Id == id));
         }
 
+        [Test]
+        public void GetNumberOfMoviesShouldBeN()
+        {
+            var movie = this.movieService.CreateMovie(data10);
 
-        //Still not Working
-        //[Test]
-        //public void GetNumberOfMoviesShouldBeN()
-        //{
-        //    var movie = this.movieService.CreateMovie(data10);
+            List<Movie> movies = this.movieService.GetNumberOfMovies(0, int.MaxValue);
 
-        //    List<Movie> movies = this.movieService.GetNumberOfMovies(0, int.MaxValue);
+            Assert.AreEqual( movies.Count,this.dbContext.Movies.Count());
 
-        //    Assert.AreEqual(movies.Count, 1);
+            this.RemoveMovie("TTestTEST_CASE");
+        }
 
-        //    var abmovie = this.dbContext.Movies.First(x => x.Title == "TTest");
-        //    this.dbContext.Movies.Remove(abmovie);
-
-        //}
-
+        private void RemoveMovie(string title)
+        {
+            var movie = this.dbContext.Movies.First(x => x.Title == title);
+            this.dbContext.Movies.Remove(movie);
+            this.dbContext.SaveChanges();
+        }
     }
 }

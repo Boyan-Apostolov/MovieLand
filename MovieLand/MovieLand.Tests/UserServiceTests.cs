@@ -8,10 +8,6 @@ namespace MovieLand.Tests
 {
     public class UserServiceTests : BaseTestClass
     {
-
-
-
-
         [Test]
         public void EncryptPasswordShouldReturnCorrectOutput()
         {
@@ -20,58 +16,115 @@ namespace MovieLand.Tests
 
             var actualOutput = this.userService.EncryptPassword(password);
 
-            Assert.AreEqual(expectedOutput,actualOutput);
+            Assert.AreEqual(expectedOutput, actualOutput);
         }
+
         [Test]
-
-        public void RegisterShouldReturnTrue()
+        public void RegisterShouldReturnTrueWhenCorrect()
         {
+            var email = Guid.NewGuid().ToString() + "@test.com";
             string password = "Admin123";
-            string username = "Admin";
-            string email = "Admin@land.db";
 
-            bool result = this.userService.Register(email, username, password);
-
-            Assert.IsTrue(true);
-
-            var user = this.dbContext.Users.First(x => x.UserName == "Admin");
-            this.dbContext.Users.Remove(user);
-            this.dbContext.SaveChanges();
-        }
-
-            [Test]
-        public void ULoginSouldReturnTrue()
-        {
-            string password = "Admin123";
-            string username = "Admin";
-            string email = "Admin@land.db";
-
-            
-           this.userService.Register(email, username, password);
-
-            bool result = this.userService.ULogin(username, password);
+            bool result = this.userService.Register(email, email, password);
 
             Assert.IsTrue(result);
 
-            var user = this.dbContext.Users.First(x => x.UserName == "Admin");
-            this.dbContext.Users.Remove(user);
-            this.dbContext.SaveChanges();
+            this.RemoveUser(email);
         }
-        
+
         [Test]
-        public void ELoginSholdRetunrTrue()
+        public void RegisterShouldReturnFalseWhenIncorrectEmail()
+        {
+            var email = "@test.com";
+            string password = "Admin123";
+
+
+            Assert.Throws<Exception>(() =>
+            {
+                this.userService.Register(email, email, password);
+            });
+        }
+
+        [Test]
+        public void RegisterShouldReturnThrowWhenIncorrectPassword()
+        {
+            var email = "@test.com";
+            string password = "a";
+
+
+            Assert.Throws<Exception>(() =>
+            {
+                this.userService.Register(email, email, password);
+            });
+        }
+
+        [Test]
+        public void ULoginShouldReturnTrue()
         {
             string password = "Admin123";
-            string username = "Admin";
-            string email = "Admin@land.db";
+            var email = Guid.NewGuid().ToString() + "@test.com";
 
-            this.userService.Register(email, username, password);
 
-            bool reslut = this.userService.ELogin(email, password);
+            this.userService.Register(email, email, password);
 
-            Assert.IsTrue(reslut);
+            bool result = this.userService.ULogin(email, password);
 
-            var user = this.dbContext.Users.First(x => x.UserName == "Admin");
+            Assert.IsTrue(result);
+
+            this.RemoveUser(email);
+        }
+
+        [Test]
+        public void ULoginShouldReturnThrowWhenIncorrect()
+        {
+            string password = "Admin123";
+            var email = Guid.NewGuid().ToString() + "@test.com";
+
+
+            this.userService.Register(email, email, password);
+
+            Assert.Throws<Exception>(() =>
+            {
+                this.userService.ULogin(email, "not-correct");
+            });
+
+            this.RemoveUser(email);
+        }
+
+        [Test]
+        public void ELoginShouldReturnTrue()
+        {
+            string password = "Admin123";
+            var email = Guid.NewGuid().ToString() + "@test.com"; ;
+
+            this.userService.Register(email, email, password);
+
+            bool result = this.userService.ELogin(email, password);
+
+            Assert.IsTrue(result);
+
+            this.RemoveUser(email);
+        }
+
+        [Test]
+        public void ELoginShouldReturnThrowWhenIncorrect()
+        {
+            string password = "Admin123";
+            var email = Guid.NewGuid().ToString() + "@test.com"; ;
+
+            this.userService.Register(email, email, password);
+
+            Assert.Throws<Exception>(() =>
+            {
+                this.userService.ELogin(email, "a");
+            });
+
+            this.RemoveUser(email);
+        }
+
+        private void RemoveUser(string email)
+        {
+            var user = this.dbContext.Users.First(x => x.Email == email);
             this.dbContext.Users.Remove(user);
             this.dbContext.SaveChanges();
         }
