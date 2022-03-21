@@ -21,7 +21,7 @@ namespace MovieLand.Services.Movies
             {
                 Title = movieToCreate.Title,
                 Plot = movieToCreate.Plot,
-                Producer = movieToCreate.Plot,
+                Producer = movieToCreate.Producer,
                 Genre = movieToCreate.Genre,
                 Actors = movieToCreate.Actors,
                 KeyWords = movieToCreate.Keywords
